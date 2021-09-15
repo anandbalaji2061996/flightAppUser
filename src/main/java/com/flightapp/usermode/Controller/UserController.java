@@ -1,36 +1,27 @@
 package com.flightapp.usermode.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.flightapp.usermode.DAO.LoginCredentials;
 import com.flightapp.usermode.DAO.UserDetails;
-import com.flightapp.usermode.Interface.UserDetailsRepository;
+import com.flightapp.usermode.Service.UserService;
 
 @RestController
 public class UserController {
 
 	@Autowired
-	private UserDetailsRepository detailsRepository;
+	private UserService service;
 
 	@PostMapping("/register")
 	public String registerUser(@RequestBody UserDetails details) {
-		detailsRepository.save(details);
-		return "User registered successfully!";
+		return service.registerUser(details);
 	}
 
-	@GetMapping("/login/emailId/{emailId}/password/{password}")
-	public String loginUser(@PathVariable("emailId") String emailId, @PathVariable("password") String password) {
-		UserDetails user = detailsRepository.findByEmailId(emailId);
-
-		if (user != null && user.getPassword().equals(password)) {
-			return "Success";
-		}
-
-		else
-			return "Invalid Login";
+	@PostMapping("/user/login")
+	public String loginUser(@RequestBody LoginCredentials credentials) {
+		return service.loginUser(credentials);
 	}
 }
