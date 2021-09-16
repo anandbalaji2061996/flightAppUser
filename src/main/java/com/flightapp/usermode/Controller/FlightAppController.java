@@ -16,7 +16,7 @@ import com.flightapp.usermode.DAO.BookingDetailsDisplay;
 import com.flightapp.usermode.Service.FlightAppService;
 
 @RestController
-@RequestMapping("/api/v1.0/flight/")
+@RequestMapping("/user/api/v1.0/flight/")
 public class FlightAppController {
 
 	@Autowired
