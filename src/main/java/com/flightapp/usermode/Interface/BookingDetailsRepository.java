@@ -12,7 +12,7 @@ public interface BookingDetailsRepository extends JpaRepository<BookingDetails, 
 
 	BookingDetails findByPnr(String pnr);
 	
-	List<BookingDetails> findByEmaildId(String emaildId);
+	List<BookingDetails> findByEmailId(String emailId);
 	
 	void deleteByPnr(String pnr);
 }

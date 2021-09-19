@@ -1,14 +1,11 @@
 package com.flightapp.usermode.DAO;
 
-import java.util.List;
+public class BookingDetailsFromUI {
 
-public class BookingDetailsDisplay {
-
-	private String pnr;
 	private String name;
 	private String emailId;
 	private int numberOfSeats;
-	private List<PassengerDetails> passengerDetails;
+	private String passengerDetails;
 	private String seatType;
 	private String mealOption;
 	private String seatnos;
@@ -16,23 +13,17 @@ public class BookingDetailsDisplay {
 	private String flightNumber;
 	private int ticketCost;
 	
-	public String getPnr() {
-		return pnr;
+	public String getName() {
+		return name;
 	}
-	public void setPnr(String pnr) {
-		this.pnr = pnr;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getFlightNumber() {
 		return flightNumber;
 	}
 	public void setFlightNumber(String flightNumber) {
 		this.flightNumber = flightNumber;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 	public String getEmailId() {
 		return emailId;
@@ -52,10 +43,10 @@ public class BookingDetailsDisplay {
 	public void setNumberOfSeats(int numberOfSeats) {
 		this.numberOfSeats = numberOfSeats;
 	}
-	public List<PassengerDetails> getPassengerDetails() {
+	public String getPassengerDetails() {
 		return passengerDetails;
 	}
-	public void setPassengerDetails(List<PassengerDetails> passengerDetails) {
+	public void setPassengerDetails(String passengerDetails) {
 		this.passengerDetails = passengerDetails;
 	}
 	public String getMealOption() {
@@ -82,5 +73,4 @@ public class BookingDetailsDisplay {
 	public void setTicketCost(int ticketCost) {
 		this.ticketCost = ticketCost;
 	}
-	
 }

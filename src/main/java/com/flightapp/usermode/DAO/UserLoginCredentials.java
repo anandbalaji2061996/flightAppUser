@@ -1,6 +1,6 @@
 package com.flightapp.usermode.DAO;
 
-public class LoginCredentials {
+public class UserLoginCredentials {
 
 	private String emailId;
 	private String password;

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.flightapp.usermode.DAO.BookingDetails;
 import com.flightapp.usermode.DAO.BookingDetailsDisplay;
+import com.flightapp.usermode.DAO.BookingDetailsFromUI;
 import com.flightapp.usermode.DAO.PassengerDetails;
 import com.flightapp.usermode.Interface.BookingDetailsRepository;
 import com.flightapp.usermode.Interface.PassengerDetailsRepository;
@@ -32,40 +33,46 @@ public class FlightAppService {
 		if (bookingDetails != null) {
 			BookingDetailsDisplay bookingDetailsDisplay = new BookingDetailsDisplay();
 			bookingDetailsDisplay.setPnr(pnr);
-			bookingDetailsDisplay.setEmailId(bookingDetails.getEmaildId());
+			bookingDetailsDisplay.setEmailId(bookingDetails.getEmailId());
 			bookingDetailsDisplay.setMealOption(bookingDetails.getMealOption());
 			bookingDetailsDisplay.setName(bookingDetails.getName());
 			bookingDetailsDisplay.setNumberOfSeats(bookingDetails.getNumberOfSeats());
-			bookingDetailsDisplay.setSeatnos(null);
+			bookingDetailsDisplay.setSeatnos(bookingDetails.getSeatNos());
+			bookingDetailsDisplay.setSeatType(bookingDetails.getSeatType());
 			bookingDetailsDisplay.setDateofTravel(bookingDetails.getDateOfTravel());
 			bookingDetailsDisplay.setTicketCost(bookingDetails.getTicketCost());
+			bookingDetailsDisplay.setFlightNumber(bookingDetails.getFlightNumber());
 			bookingDetailsDisplay.setPassengerDetails(passengerDetailsRepository.findByBookingId(pnr));
 			return bookingDetailsDisplay;
 		}
 		return null;
 	}
 
-	public BookingDetails bookAFlight(String flightId, BookingDetailsDisplay bookingDetailsDisplay) {
+	public BookingDetails bookAFlight(String flightId, BookingDetailsFromUI bookingDetailsDisplay) {
 		if (bookingDetailsDisplay == null) {
 			return null;
 		}
 		BookingDetails bookingDetails = new BookingDetails();
-		String pnr = flightId + "-"+ new Random().nextLong();
+		String pnr = flightId +"-"+ new Random().nextLong();
 		bookingDetails.setPnr(pnr);
 		bookingDetails.setMealOption(bookingDetailsDisplay.getMealOption());
 		bookingDetails.setName(bookingDetailsDisplay.getName());
-		bookingDetails.setEmaildId(bookingDetailsDisplay.getEmailId());
+		bookingDetails.setEmailId(bookingDetailsDisplay.getEmailId());
+		bookingDetails.setSeatType(bookingDetailsDisplay.getSeatType());
 		bookingDetails.setNumberOfSeats(bookingDetailsDisplay.getNumberOfSeats());
-		bookingDetails.setSeatnos(bookingDetailsDisplay.getSeatnos().toString());
+		bookingDetails.setSeatNos(bookingDetailsDisplay.getSeatnos());
 		bookingDetails.setDateOfTravel(bookingDetailsDisplay.getDateofTravel());
 		bookingDetails.setTicketCost(bookingDetailsDisplay.getTicketCost());
+		bookingDetails.setFlightNumber(bookingDetailsDisplay.getFlightNumber());
+		String[] listOfPassenger = bookingDetailsDisplay.getPassengerDetails().split(",");
 
-		for (PassengerDetails details : bookingDetailsDisplay.getPassengerDetails()) {
+		for (String details : listOfPassenger) {
+			String[] passenger = details.split("-");
 			PassengerDetails passengerDetails = new PassengerDetails();
-			passengerDetails.setName(details.getName());
+			passengerDetails.setName(passenger[0]);
 			passengerDetails.setBookingId(pnr);
-			passengerDetails.setGender(details.getGender());
-			passengerDetails.setAge(details.getAge());
+			passengerDetails.setGender(passenger[1]);
+			passengerDetails.setAge(passenger[2]);
 			passengerDetailsRepository.save(passengerDetails);
 		}
 
@@ -73,7 +80,7 @@ public class FlightAppService {
 	}
 	
 	public List<BookingDetails> bookedTicketHistory(String emailId) {
-		return bookingDetailsRepository.findByEmaildId(emailId);
+		return bookingDetailsRepository.findByEmailId(emailId);
 	}
 	
 	public String cancelBooking(String pnr) {

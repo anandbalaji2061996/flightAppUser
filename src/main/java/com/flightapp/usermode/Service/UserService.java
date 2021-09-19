@@ -2,7 +2,7 @@ package com.flightapp.usermode.Service;
 
 import org.springframework.stereotype.Service;
 
-import com.flightapp.usermode.DAO.LoginCredentials;
+import com.flightapp.usermode.DAO.UserLoginCredentials;
 import com.flightapp.usermode.DAO.UserDetails;
 import com.flightapp.usermode.Interface.UserDetailsRepository;
 
@@ -20,7 +20,7 @@ public class UserService {
 		return "User registered successfully!";
 	}
 
-	public String loginUser(LoginCredentials credentials) {
+	public String loginUser(UserLoginCredentials credentials) {
 		UserDetails user = detailsRepository.findByEmailId(credentials.getEmailId());
 
 		if (user != null && user.getPassword().equals(credentials.getPassword())) {
