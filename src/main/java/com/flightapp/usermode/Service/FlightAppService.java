@@ -9,6 +9,8 @@ import com.flightapp.usermode.DAO.BookingDetails;
 import com.flightapp.usermode.DAO.BookingDetailsDisplay;
 import com.flightapp.usermode.DAO.BookingDetailsFromUI;
 import com.flightapp.usermode.DAO.PassengerDetails;
+import com.flightapp.usermode.Exception.BadRequestException;
+import com.flightapp.usermode.Exception.TicketNotFoundException;
 import com.flightapp.usermode.Interface.BookingDetailsRepository;
 import com.flightapp.usermode.Interface.PassengerDetailsRepository;
 
@@ -25,9 +27,7 @@ public class FlightAppService {
 		this.passengerDetailsRepository = passengerDetailsRepository;
 	}
 
-	public BookingDetailsDisplay getBookingDetails(String pnr) {
-		if (pnr == null)
-			return null;
+	public BookingDetailsDisplay getBookingDetails(String pnr) throws TicketNotFoundException{
 		BookingDetails bookingDetails = bookingDetailsRepository.findByPnr(pnr);
 
 		if (bookingDetails != null) {
@@ -45,12 +45,12 @@ public class FlightAppService {
 			bookingDetailsDisplay.setPassengerDetails(passengerDetailsRepository.findByBookingId(pnr));
 			return bookingDetailsDisplay;
 		}
-		return null;
+		throw new TicketNotFoundException("Ticket not found!");
 	}
 
-	public BookingDetails bookAFlight(String flightId, BookingDetailsFromUI bookingDetailsDisplay) {
+	public BookingDetails bookAFlight(String flightId, BookingDetailsFromUI bookingDetailsDisplay) throws BadRequestException {
 		if (bookingDetailsDisplay == null) {
-			return null;
+			throw new BadRequestException("Invalid details!");
 		}
 		BookingDetails bookingDetails = new BookingDetails();
 		String pnr = flightId +"-"+ new Random().nextLong();
@@ -83,8 +83,13 @@ public class FlightAppService {
 		return bookingDetailsRepository.findByEmailId(emailId);
 	}
 	
-	public String cancelBooking(String pnr) {
+	public String cancelBooking(String pnr) throws TicketNotFoundException {
 		List<PassengerDetails> details = passengerDetailsRepository.findByBookingId(pnr);
+		
+		if(details.size()==0 || bookingDetailsRepository.findByPnr(pnr) == null) {
+			throw new TicketNotFoundException("Ticket Not Found!");
+		}
+		
 		details.stream().forEach(d -> {
 			passengerDetailsRepository.deleteById(d.getId());
 		});

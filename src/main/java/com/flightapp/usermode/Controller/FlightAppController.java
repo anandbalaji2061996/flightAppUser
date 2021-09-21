@@ -19,6 +19,10 @@ import com.flightapp.usermode.DAO.BookingDetailsDisplay;
 import com.flightapp.usermode.DAO.BookingDetailsFromUI;
 import com.flightapp.usermode.DAO.UserDetails;
 import com.flightapp.usermode.DAO.UserLoginCredentials;
+import com.flightapp.usermode.Exception.BadRequestException;
+import com.flightapp.usermode.Exception.TicketNotFoundException;
+import com.flightapp.usermode.Exception.UserAlreadyExistException;
+import com.flightapp.usermode.Exception.UserNotFoundException;
 import com.flightapp.usermode.Service.FlightAppService;
 import com.flightapp.usermode.Service.UserService;
 
@@ -34,13 +38,13 @@ public class FlightAppController {
 	UserService userService;
 
 	@GetMapping("/ticket/{pnr}")
-	public ResponseEntity<BookingDetailsDisplay> getBookingDetails(@PathVariable("pnr") String pnr) {
+	public ResponseEntity<BookingDetailsDisplay> getBookingDetails(@PathVariable("pnr") String pnr) throws TicketNotFoundException {
 		return new ResponseEntity<>(service.getBookingDetails(pnr), HttpStatus.OK);
 	}
 
 	@PostMapping("/booking/{flightId}")
 	public ResponseEntity<BookingDetails> bookAFlight(@PathVariable("flightId") String flightId,
-			@RequestBody BookingDetailsFromUI bookingDetailsDisplay) {
+			@RequestBody BookingDetailsFromUI bookingDetailsDisplay) throws BadRequestException {
 		return new ResponseEntity<>(service.bookAFlight(flightId, bookingDetailsDisplay), HttpStatus.CREATED);
 	}
 	
@@ -50,17 +54,17 @@ public class FlightAppController {
 	}
 	
 	@DeleteMapping("/booking/cancel/{pnr}")
-	public ResponseEntity<String> cancelBooking(@PathVariable("pnr") String pnr) {
+	public ResponseEntity<String> cancelBooking(@PathVariable("pnr") String pnr) throws TicketNotFoundException {
 		return new ResponseEntity<>(service.cancelBooking(pnr), HttpStatus.ACCEPTED);
 	}
 	
 	@PostMapping("/register")
-	public ResponseEntity<String> registerUser(@RequestBody UserDetails details) {
+	public ResponseEntity<String> registerUser(@RequestBody UserDetails details) throws UserAlreadyExistException {
 		return new ResponseEntity<>(userService.registerUser(details), HttpStatus.OK);
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<String> loginUser(@RequestBody UserLoginCredentials credentials) {
+	public ResponseEntity<String> loginUser(@RequestBody UserLoginCredentials credentials) throws UserNotFoundException {
 		return new ResponseEntity<>(userService.loginUser(credentials), HttpStatus.OK);
 	}
 }

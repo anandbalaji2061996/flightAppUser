@@ -9,8 +9,8 @@ import javax.persistence.Table;
 public class UserDetails {
 
 	@Id
-	private String name;
 	private String emailId;
+	private String name;
 	private String password;
 	public String getName() {
 		return name;
@@ -29,6 +29,6 @@ public class UserDetails {
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}	
+	}
 	
 }

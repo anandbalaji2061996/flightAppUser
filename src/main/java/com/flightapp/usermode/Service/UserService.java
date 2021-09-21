@@ -3,6 +3,8 @@ package com.flightapp.usermode.Service;
 import org.springframework.stereotype.Service;
 
 import com.flightapp.usermode.DAO.UserLoginCredentials;
+import com.flightapp.usermode.Exception.UserAlreadyExistException;
+import com.flightapp.usermode.Exception.UserNotFoundException;
 import com.flightapp.usermode.DAO.UserDetails;
 import com.flightapp.usermode.Interface.UserDetailsRepository;
 
@@ -15,19 +17,21 @@ public class UserService {
 		this.detailsRepository = detailsRepository;
 	}
 
-	public String registerUser(UserDetails details) {
+	public String registerUser(UserDetails details) throws UserAlreadyExistException {
+		if(detailsRepository.findByEmailId(details.getEmailId()) != null) {
+			throw new UserAlreadyExistException("User Already found!");
+		}
 		detailsRepository.save(details);
 		return "User registered successfully!";
 	}
 
-	public String loginUser(UserLoginCredentials credentials) {
+	public String loginUser(UserLoginCredentials credentials) throws UserNotFoundException{
 		UserDetails user = detailsRepository.findByEmailId(credentials.getEmailId());
 
 		if (user != null && user.getPassword().equals(credentials.getPassword())) {
 			return "Success";
 		}
-
 		else
-			return "Invalid Login";
+			throw new UserNotFoundException("Invalid user credentials!");
 	}
 }
