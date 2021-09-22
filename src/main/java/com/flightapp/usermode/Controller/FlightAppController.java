@@ -2,6 +2,8 @@ package com.flightapp.usermode.Controller;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,10 +28,12 @@ import com.flightapp.usermode.Exception.UserNotFoundException;
 import com.flightapp.usermode.Service.FlightAppService;
 import com.flightapp.usermode.Service.UserService;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/user/api/v1.0/flight")
 public class FlightAppController {
+	
+	private static final Logger logger = LogManager.getLogger(FlightAppController.class);
 
 	@Autowired
 	FlightAppService service;
@@ -39,32 +43,38 @@ public class FlightAppController {
 
 	@GetMapping("/ticket/{pnr}")
 	public ResponseEntity<BookingDetailsDisplay> getBookingDetails(@PathVariable("pnr") String pnr) throws TicketNotFoundException {
+		logger.info("Get booking Details " + pnr);
 		return new ResponseEntity<>(service.getBookingDetails(pnr), HttpStatus.OK);
 	}
 
 	@PostMapping("/booking/{flightId}")
 	public ResponseEntity<BookingDetails> bookAFlight(@PathVariable("flightId") String flightId,
 			@RequestBody BookingDetailsFromUI bookingDetailsDisplay) throws BadRequestException {
+		logger.info("Book the tickets");
 		return new ResponseEntity<>(service.bookAFlight(flightId, bookingDetailsDisplay), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/booking/history/{emailId}")
 	public ResponseEntity<List<BookingDetails>> bookedTicketHistory(@PathVariable("emailId") String emailId) {
+		logger.info("Fetching ticket history for " + emailId);
 		return new ResponseEntity<>(service.bookedTicketHistory(emailId), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/booking/cancel/{pnr}")
 	public ResponseEntity<String> cancelBooking(@PathVariable("pnr") String pnr) throws TicketNotFoundException {
+		logger.warn("Cancelling ticket of " + pnr);
 		return new ResponseEntity<>(service.cancelBooking(pnr), HttpStatus.ACCEPTED);
 	}
 	
 	@PostMapping("/register")
 	public ResponseEntity<String> registerUser(@RequestBody UserDetails details) throws UserAlreadyExistException {
+		logger.info("Register user details");
 		return new ResponseEntity<>(userService.registerUser(details), HttpStatus.OK);
 	}
 
 	@PostMapping("/login")
 	public ResponseEntity<String> loginUser(@RequestBody UserLoginCredentials credentials) throws UserNotFoundException {
+		logger.info("Login User!");
 		return new ResponseEntity<>(userService.loginUser(credentials), HttpStatus.OK);
 	}
 }
