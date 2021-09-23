@@ -3,6 +3,8 @@ package com.flightapp.usermode.Service;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.flightapp.usermode.DAO.BookingDetails;
@@ -16,6 +18,8 @@ import com.flightapp.usermode.Interface.PassengerDetailsRepository;
 
 @Service
 public class FlightAppService {
+	
+	private static final Logger logger = LogManager.getLogger(FlightAppService.class);
 
 	private BookingDetailsRepository bookingDetailsRepository;
 
@@ -45,11 +49,13 @@ public class FlightAppService {
 			bookingDetailsDisplay.setPassengerDetails(passengerDetailsRepository.findByBookingId(pnr));
 			return bookingDetailsDisplay;
 		}
+		logger.warn("Ticket not found");
 		throw new TicketNotFoundException("Ticket not found!");
 	}
 
 	public BookingDetails bookAFlight(String flightId, BookingDetailsFromUI bookingDetailsDisplay) throws BadRequestException {
 		if (bookingDetailsDisplay == null) {
+			logger.warn("Invalid Details");
 			throw new BadRequestException("Invalid details!");
 		}
 		BookingDetails bookingDetails = new BookingDetails();
@@ -87,6 +93,7 @@ public class FlightAppService {
 		List<PassengerDetails> details = passengerDetailsRepository.findByBookingId(pnr);
 		
 		if(details.size()==0 || bookingDetailsRepository.findByPnr(pnr) == null) {
+			logger.warn("Ticket not found");
 			throw new TicketNotFoundException("Ticket Not Found!");
 		}
 		
