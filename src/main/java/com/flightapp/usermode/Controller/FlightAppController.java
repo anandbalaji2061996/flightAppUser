@@ -31,7 +31,7 @@ import com.flightapp.usermode.Service.UserService;
 
 @CrossOrigin("http://localhost:4200")
 @RestController
-@RequestMapping("/user/api/v1.0/flight")
+@RequestMapping("/api1/v1.0/user/flight")
 public class FlightAppController {
 	
 	private static final Logger logger = LogManager.getLogger(FlightAppController.class);
