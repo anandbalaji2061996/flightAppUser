@@ -1,5 +1,6 @@
 package com.flightapp.usermode.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -42,9 +43,11 @@ public class FlightAppController {
 	UserService userService;
 
 	@GetMapping("/ticket/{pnr}")
-	public ResponseEntity<BookingDetailsDisplay> getBookingDetails(@PathVariable("pnr") String pnr) throws TicketNotFoundException {
+	public ResponseEntity<List<BookingDetailsDisplay>> getBookingDetails(@PathVariable("pnr") String pnr) throws TicketNotFoundException {
 		logger.info("Get booking Details " + pnr);
-		return new ResponseEntity<>(service.getBookingDetails(pnr), HttpStatus.OK);
+		List<BookingDetailsDisplay> list = new ArrayList<>();
+		list.add(service.getBookingDetails(pnr));
+		return new ResponseEntity<List<BookingDetailsDisplay>>(list, HttpStatus.OK);
 	}
 
 	@PostMapping("/booking/{flightId}")
