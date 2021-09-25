@@ -14,6 +14,7 @@ public class BookingDetailsDisplay {
 	private String seatnos;
 	private String dateofTravel;
 	private String flightNumber;
+	private String discountCode;
 	private int ticketCost;
 	
 	public String getPnr() {
@@ -75,6 +76,12 @@ public class BookingDetailsDisplay {
 	}
 	public void setDateofTravel(String dateofTravel) {
 		this.dateofTravel = dateofTravel;
+	}
+	public String getDiscountCode() {
+		return discountCode;
+	}
+	public void setDiscountCode(String discountCode) {
+		this.discountCode = discountCode;
 	}
 	public int getTicketCost() {
 		return ticketCost;

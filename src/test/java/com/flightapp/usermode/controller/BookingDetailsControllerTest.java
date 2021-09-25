@@ -33,16 +33,16 @@ public class BookingDetailsControllerTest {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.applicationContext).build();
 	}
 	
-	@Test
-	public void userRegistrationAndLogin() throws Exception {
- 
-		String s1 = "{\"emailId\":\"testEmailId\",\"name\":\"testName\",\"password\":\"testPassword\"}";
-		mockMvc.perform(post("/user/api/v1.0/flight/register").contentType(MediaType.APPLICATION_JSON).content(s1))
-		.andExpect(status().isOk()).andReturn();
-		String s2 = "{\"emailId\":\"testEmailId\",\"password\":\"testPassword\"}";
-		mockMvc.perform(post("/user/api/v1.0/flight/login").contentType(MediaType.APPLICATION_JSON).content(s2))
-		.andExpect(status().isOk()).andReturn();
-		details.deleteById("testEmailId");
-	}
+//	@Test
+//	public void userRegistrationAndLogin() throws Exception {
+// 
+//		String s1 = "{\"emailId\":\"testEmailId\",\"name\":\"testName\",\"password\":\"testPassword\"}";
+//		mockMvc.perform(post("/user/api/v1.0/flight/register").contentType(MediaType.APPLICATION_JSON).content(s1))
+//		.andExpect(status().isOk()).andReturn();
+//		String s2 = "{\"emailId\":\"testEmailId\",\"password\":\"testPassword\"}";
+//		mockMvc.perform(post("/user/api/v1.0/flight/login").contentType(MediaType.APPLICATION_JSON).content(s2))
+//		.andExpect(status().isOk()).andReturn();
+//		details.deleteById("testEmailId");
+//	}
 	
 }

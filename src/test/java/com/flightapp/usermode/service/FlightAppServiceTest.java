@@ -50,6 +50,7 @@ public class FlightAppServiceTest {
 		fromUI.setPassengerDetails("A1-23-M,A2-24-F");
 		fromUI.setSeatnos("21,22");
 		fromUI.setSeatType("Business Class");
+		fromUI.setDiscountCode("TESTDISCOUNT10");
 		fromUI.setTicketCost(11000);
 	}
 
@@ -76,6 +77,7 @@ public class FlightAppServiceTest {
 		assertEquals("Business Class", bd.getSeatType());
 		assertEquals(11000, bd.getTicketCost());
 		assertEquals("myName", bd.getName());
+		assertEquals("TESTDISCOUNT10",bd.getDiscountCode());
 	}
 
 	@Test

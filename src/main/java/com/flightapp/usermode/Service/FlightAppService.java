@@ -47,6 +47,7 @@ public class FlightAppService {
 			bookingDetailsDisplay.setTicketCost(bookingDetails.getTicketCost());
 			bookingDetailsDisplay.setFlightNumber(bookingDetails.getFlightNumber());
 			bookingDetailsDisplay.setPassengerDetails(passengerDetailsRepository.findByBookingId(pnr));
+			bookingDetailsDisplay.setDiscountCode(bookingDetails.getDiscountCode());
 			return bookingDetailsDisplay;
 		}
 		logger.warn("Ticket not found");
@@ -70,6 +71,8 @@ public class FlightAppService {
 		bookingDetails.setDateOfTravel(bookingDetailsDisplay.getDateofTravel());
 		bookingDetails.setTicketCost(bookingDetailsDisplay.getTicketCost());
 		bookingDetails.setFlightNumber(bookingDetailsDisplay.getFlightNumber());
+		bookingDetails.setDiscountCode(bookingDetailsDisplay.getDiscountCode());
+
 		String[] listOfPassenger = bookingDetailsDisplay.getPassengerDetails().split(",");
 
 		for (String details : listOfPassenger) {
