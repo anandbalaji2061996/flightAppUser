@@ -16,7 +16,7 @@ public class BookingDetails {
 	private int numberOfSeats;
 	private String mealOption;
 	private String seatType;
-	private String seatNos;
+//	private String seatNos;
 	private String dateOfTravel;
 	private String discountCode;
 	private int ticketCost;
@@ -51,12 +51,12 @@ public class BookingDetails {
 	public void setSeatType(String seatType) {
 		this.seatType = seatType;
 	}
-	public String getSeatNos() {
-		return seatNos;
-	}
-	public void setSeatNos(String seatNos) {
-		this.seatNos = seatNos;
-	}
+//	public String getSeatNos() {
+//		return seatNos;
+//	}
+//	public void setSeatNos(String seatNos) {
+//		this.seatNos = seatNos;
+//	}
 	public int getNumberOfSeats() {
 		return numberOfSeats;
 	}

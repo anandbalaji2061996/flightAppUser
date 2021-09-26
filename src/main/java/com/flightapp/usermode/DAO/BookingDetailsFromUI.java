@@ -8,7 +8,7 @@ public class BookingDetailsFromUI {
 	private String passengerDetails;
 	private String seatType;
 	private String mealOption;
-	private String seatnos;
+//	private String seatnos;
 	private String dateofTravel;
 	private String flightNumber;
 	private String discountCode;
@@ -56,12 +56,12 @@ public class BookingDetailsFromUI {
 	public void setMealOption(String mealOption) {
 		this.mealOption = mealOption;
 	}
-	public String getSeatnos() {
-		return seatnos;
-	}
-	public void setSeatnos(String seatnos) {
-		this.seatnos = seatnos;
-	}
+//	public String getSeatnos() {
+//		return seatnos;
+//	}
+//	public void setSeatnos(String seatnos) {
+//		this.seatnos = seatnos;
+//	}
 	public String getDateofTravel() {
 		return dateofTravel;
 	}

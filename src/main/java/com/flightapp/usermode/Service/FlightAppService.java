@@ -41,7 +41,7 @@ public class FlightAppService {
 			bookingDetailsDisplay.setMealOption(bookingDetails.getMealOption());
 			bookingDetailsDisplay.setName(bookingDetails.getName());
 			bookingDetailsDisplay.setNumberOfSeats(bookingDetails.getNumberOfSeats());
-			bookingDetailsDisplay.setSeatnos(bookingDetails.getSeatNos());
+//			bookingDetailsDisplay.setSeatnos(bookingDetails.getSeatNos());
 			bookingDetailsDisplay.setSeatType(bookingDetails.getSeatType());
 			bookingDetailsDisplay.setDateofTravel(bookingDetails.getDateOfTravel());
 			bookingDetailsDisplay.setTicketCost(bookingDetails.getTicketCost());
@@ -67,7 +67,7 @@ public class FlightAppService {
 		bookingDetails.setEmailId(bookingDetailsDisplay.getEmailId());
 		bookingDetails.setSeatType(bookingDetailsDisplay.getSeatType());
 		bookingDetails.setNumberOfSeats(bookingDetailsDisplay.getNumberOfSeats());
-		bookingDetails.setSeatNos(bookingDetailsDisplay.getSeatnos());
+//		bookingDetails.setSeatNos(bookingDetailsDisplay.getSeatnos());
 		bookingDetails.setDateOfTravel(bookingDetailsDisplay.getDateofTravel());
 		bookingDetails.setTicketCost(bookingDetailsDisplay.getTicketCost());
 		bookingDetails.setFlightNumber(bookingDetailsDisplay.getFlightNumber());
