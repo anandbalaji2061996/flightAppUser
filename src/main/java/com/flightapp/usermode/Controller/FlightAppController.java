@@ -80,4 +80,10 @@ public class FlightAppController {
 		logger.info("Login User!");
 		return new ResponseEntity<>(userService.loginUser(credentials), HttpStatus.OK);
 	}
+	
+	@GetMapping("/userDetails/{emailId}")
+	public ResponseEntity<String> getUserDetails(@PathVariable("emailId") String emailId) throws UserNotFoundException {
+		logger.info("Get User Details!");
+		return new ResponseEntity<>(userService.getUserDetails(emailId), HttpStatus.OK);
+	}
 }

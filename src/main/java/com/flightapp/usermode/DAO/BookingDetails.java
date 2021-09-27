@@ -18,6 +18,8 @@ public class BookingDetails {
 	private String seatType;
 //	private String seatNos;
 	private String dateOfTravel;
+	private String departureTime;
+	private String arrivalTime;
 	private String discountCode;
 	private int ticketCost;
 	
@@ -74,6 +76,18 @@ public class BookingDetails {
 	}
 	public void setDateOfTravel(String dateOfTravel) {
 		this.dateOfTravel = dateOfTravel;
+	}
+	public String getDepartureTime() {
+		return departureTime;
+	}
+	public void setDepartureTime(String departureTime) {
+		this.departureTime = departureTime;
+	}
+	public String getArrivalTime() {
+		return arrivalTime;
+	}
+	public void setArrivalTime(String arrivalTime) {
+		this.arrivalTime = arrivalTime;
 	}
 	public String getDiscountCode() {
 		return discountCode;

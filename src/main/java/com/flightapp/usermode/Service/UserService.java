@@ -41,4 +41,17 @@ public class UserService {
 			throw new UserNotFoundException("Invalid user credentials!");
 		}
 	}
+	
+	public String getUserDetails(String emailId) throws UserNotFoundException{
+		UserDetails user = detailsRepository.findByEmailId(emailId);
+
+		if (user != null) {
+			return user.getName();
+		}
+		else {
+			logger.warn("User credentials not found!");
+			throw new UserNotFoundException("User credentials not found!");
+		}
+	}
 }
+

@@ -42,6 +42,8 @@ public class FlightAppServiceTest {
 		service = new FlightAppService(detailsRepository, passengerDetailsRepository);
 		fromUI = new BookingDetailsFromUI();
 		fromUI.setDateofTravel("today");
+		fromUI.setDepartureTime("13:00");
+		fromUI.setArrivalTime("15:00");
 		fromUI.setEmailId("testEmailId");
 		fromUI.setFlightNumber("123");
 		fromUI.setMealOption("Veg");
@@ -69,6 +71,8 @@ public class FlightAppServiceTest {
 		BookingDetails bd = service.bookAFlight("123", fromUI);
 		assertNotNull(bd);
 		assertEquals("today", bd.getDateOfTravel());
+		assertEquals("13:00", bd.getDepartureTime());
+		assertEquals("15:00", bd.getArrivalTime());
 		assertEquals("testEmailId", bd.getEmailId());
 		assertEquals("123", bd.getFlightNumber());
 		assertEquals("Veg", bd.getMealOption());

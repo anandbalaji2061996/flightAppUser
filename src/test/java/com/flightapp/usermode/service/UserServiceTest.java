@@ -76,4 +76,20 @@ public class UserServiceTest {
 
 		assertThat(thrown).isInstanceOf(UserNotFoundException.class);
 	}
+	
+	@Test
+	public void getUserDetails() throws UserNotFoundException {
+		UserDetails d = new UserDetails();
+		d.setEmailId("testEmailId");
+		d.setName("testName");
+		d.setPassword("testPassword");
+
+		detailsRepository.save(d);
+
+		assertEquals(service.getUserDetails("testEmailId"), "testName");
+
+		Throwable thrown = catchThrowable(() -> service.getUserDetails("testEmailId1"));
+
+		assertThat(thrown).isInstanceOf(UserNotFoundException.class);
+	}
 }

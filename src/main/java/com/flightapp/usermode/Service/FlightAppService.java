@@ -44,14 +44,16 @@ public class FlightAppService {
 //			bookingDetailsDisplay.setSeatnos(bookingDetails.getSeatNos());
 			bookingDetailsDisplay.setSeatType(bookingDetails.getSeatType());
 			bookingDetailsDisplay.setDateofTravel(bookingDetails.getDateOfTravel());
+			bookingDetailsDisplay.setDepartureTime(bookingDetails.getDepartureTime());
+			bookingDetailsDisplay.setArrivalTime(bookingDetails.getArrivalTime());
 			bookingDetailsDisplay.setTicketCost(bookingDetails.getTicketCost());
 			bookingDetailsDisplay.setFlightNumber(bookingDetails.getFlightNumber());
 			bookingDetailsDisplay.setPassengerDetails(passengerDetailsRepository.findByBookingId(pnr));
 			bookingDetailsDisplay.setDiscountCode(bookingDetails.getDiscountCode());
 			return bookingDetailsDisplay;
 		}
-		logger.warn("Ticket not found");
-		throw new TicketNotFoundException("Ticket not found!");
+		logger.warn("Tickets not found");
+		throw new TicketNotFoundException("Tickets not found!");
 	}
 
 	public BookingDetails bookAFlight(String flightId, BookingDetailsFromUI bookingDetailsDisplay) throws BadRequestException {
@@ -60,7 +62,7 @@ public class FlightAppService {
 			throw new BadRequestException("Invalid details!");
 		}
 		BookingDetails bookingDetails = new BookingDetails();
-		String pnr = flightId +"-"+ new Random().nextLong();
+		String pnr = flightId +"-"+ Math.abs(new Random().nextLong());
 		bookingDetails.setPnr(pnr);
 		bookingDetails.setMealOption(bookingDetailsDisplay.getMealOption());
 		bookingDetails.setName(bookingDetailsDisplay.getName());
@@ -69,6 +71,8 @@ public class FlightAppService {
 		bookingDetails.setNumberOfSeats(bookingDetailsDisplay.getNumberOfSeats());
 //		bookingDetails.setSeatNos(bookingDetailsDisplay.getSeatnos());
 		bookingDetails.setDateOfTravel(bookingDetailsDisplay.getDateofTravel());
+		bookingDetails.setDepartureTime(bookingDetailsDisplay.getDepartureTime());
+		bookingDetails.setArrivalTime(bookingDetailsDisplay.getArrivalTime());
 		bookingDetails.setTicketCost(bookingDetailsDisplay.getTicketCost());
 		bookingDetails.setFlightNumber(bookingDetailsDisplay.getFlightNumber());
 		bookingDetails.setDiscountCode(bookingDetailsDisplay.getDiscountCode());
