@@ -44,6 +44,8 @@ public class FlightAppService {
 //			bookingDetailsDisplay.setSeatnos(bookingDetails.getSeatNos());
 			bookingDetailsDisplay.setSeatType(bookingDetails.getSeatType());
 			bookingDetailsDisplay.setDateofTravel(bookingDetails.getDateOfTravel());
+			bookingDetailsDisplay.setFromPlace(bookingDetails.getFromPlace());
+			bookingDetailsDisplay.setToPlace(bookingDetails.getToPlace());
 			bookingDetailsDisplay.setDepartureTime(bookingDetails.getDepartureTime());
 			bookingDetailsDisplay.setArrivalTime(bookingDetails.getArrivalTime());
 			bookingDetailsDisplay.setTicketCost(bookingDetails.getTicketCost());
@@ -71,6 +73,8 @@ public class FlightAppService {
 		bookingDetails.setNumberOfSeats(bookingDetailsDisplay.getNumberOfSeats());
 //		bookingDetails.setSeatNos(bookingDetailsDisplay.getSeatnos());
 		bookingDetails.setDateOfTravel(bookingDetailsDisplay.getDateofTravel());
+		bookingDetails.setFromPlace(bookingDetailsDisplay.getFromPlace());
+		bookingDetails.setToPlace(bookingDetailsDisplay.getToPlace());
 		bookingDetails.setDepartureTime(bookingDetailsDisplay.getDepartureTime());
 		bookingDetails.setArrivalTime(bookingDetailsDisplay.getArrivalTime());
 		bookingDetails.setTicketCost(bookingDetailsDisplay.getTicketCost());
