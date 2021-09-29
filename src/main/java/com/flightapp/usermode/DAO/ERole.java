@@ -1,0 +1,5 @@
+package com.flightapp.usermode.DAO;
+
+public enum ERole {
+	ROLE_USER, ROLE_MODERATOR, ROLE_ADMIN
+}

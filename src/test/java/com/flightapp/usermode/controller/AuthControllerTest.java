@@ -1,5 +1,4 @@
 package com.flightapp.usermode.controller;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -14,19 +13,20 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.flightapp.usermode.Interface.UserDetailsRepository;
+import com.flightapp.usermode.Interface.UserRepository;
+
 
 @WebAppConfiguration
 @SpringBootTest
 @ActiveProfiles("test")
-public class BookingDetailsControllerTest {
+public class AuthControllerTest {
 
 	@Autowired
 	private WebApplicationContext applicationContext;
 	
 	private MockMvc mockMvc;
 	
-	@Autowired UserDetailsRepository details;
+	@Autowired UserRepository details;
 	
 	@BeforeEach
 	public void setup() throws Exception{
@@ -36,13 +36,12 @@ public class BookingDetailsControllerTest {
 	@Test
 	public void userRegistrationAndLogin() throws Exception {
  
-		String s1 = "{\"emailId\":\"testEmailId\",\"name\":\"testName\",\"password\":\"testPassword\"}";
-		mockMvc.perform(post("/api1/v1.0/user/flight/register").contentType(MediaType.APPLICATION_JSON).content(s1))
+		String s1 = "{\"email\":\"testEmailId1@gmail\",\"username\":\"testName\",\"password\":\"testPassword\"}";
+		mockMvc.perform(post("/api1/auth/user/register").contentType(MediaType.APPLICATION_JSON).content(s1))
 		.andExpect(status().isOk()).andReturn();
-		String s2 = "{\"emailId\":\"testEmailId\",\"password\":\"testPassword\"}";
-		mockMvc.perform(post("/api1/v1.0/user/flight/login").contentType(MediaType.APPLICATION_JSON).content(s2))
+		String s2 = "{\"emailId\":\"testEmailId1@gmail\",\"password\":\"testPassword\"}";
+		mockMvc.perform(post("/api1/auth/user/login").contentType(MediaType.APPLICATION_JSON).content(s2))
 		.andExpect(status().isOk()).andReturn();
-		details.deleteById("testEmailId");
+		details.deleteById(details.findByEmail("testEmailId1@gmail").get().getId());
 	}
-	
 }
