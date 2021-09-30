@@ -11,29 +11,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.flightapp.usermode.DAO.User;
 import com.flightapp.usermode.Exception.UserNotFoundException;
+import com.flightapp.usermode.Interface.RoleRepository;
 import com.flightapp.usermode.Interface.UserRepository;
+import com.flightapp.usermode.Security.jwt.JwtUtils;
 import com.flightapp.usermode.Service.UserService;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 public class UserServiceTest {
 
+	private AuthenticationManager authenticationManager;
+
 	@Autowired
-	UserRepository detailsRepository;
+	private UserRepository userRepository;
+
+	private RoleRepository roleRepository;
+
+	private PasswordEncoder encoder;
+
+	private JwtUtils jwtUtils;
 
 	private UserService service;
 
 	@BeforeEach
 	public void setup() {
-		service = new UserService(detailsRepository);
+		service = new UserService(userRepository, jwtUtils, authenticationManager, roleRepository, encoder);
 	}
 
 	@AfterEach
 	public void setup2() {
-		detailsRepository.deleteAll();
+		userRepository.deleteAll();
 	}
 
 //	@Test
@@ -83,7 +95,7 @@ public class UserServiceTest {
 		d.setUsername("testName");
 		d.setPassword("testPassword");
 		
-		detailsRepository.save(d);
+		userRepository.save(d);
 
 		assertEquals(service.getUserDetails("testEmailId@gmail"), "testName");
 
