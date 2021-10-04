@@ -1,7 +1,12 @@
 package com.flightapp.usermode.DAO;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +29,10 @@ public class BookingDetails {
 	private String arrivalTime;
 	private String discountCode;
 	private int ticketCost;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name="PNR_NO")
+    private List<PassengerDetails> passengerDetails;
 	
 	public String getPnr() {
 		return pnr;
@@ -67,12 +76,6 @@ public class BookingDetails {
 	public void setSeatType(String seatType) {
 		this.seatType = seatType;
 	}
-//	public String getSeatNos() {
-//		return seatNos;
-//	}
-//	public void setSeatNos(String seatNos) {
-//		this.seatNos = seatNos;
-//	}
 	public int getNumberOfSeats() {
 		return numberOfSeats;
 	}
@@ -114,6 +117,12 @@ public class BookingDetails {
 	}
 	public void setTicketCost(int ticketCost) {
 		this.ticketCost = ticketCost;
+	}
+	public List<PassengerDetails> getPassengerDetails() {
+		return passengerDetails;
+	}
+	public void setPassengerDetails(List<PassengerDetails> passengerDetails) {
+		this.passengerDetails = passengerDetails;
 	}
 	
 }

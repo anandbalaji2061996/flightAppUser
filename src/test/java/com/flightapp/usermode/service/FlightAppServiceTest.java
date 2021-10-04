@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
@@ -17,6 +18,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import com.flightapp.usermode.DAO.BookingDetails;
 import com.flightapp.usermode.DAO.BookingDetailsFromUI;
+import com.flightapp.usermode.DAO.PassengerDetails;
 import com.flightapp.usermode.Exception.BadRequestException;
 import com.flightapp.usermode.Exception.TicketNotFoundException;
 import com.flightapp.usermode.Interface.BookingDetailsRepository;
@@ -51,11 +53,18 @@ public class FlightAppServiceTest {
 		fromUI.setMealOption("Veg");
 		fromUI.setName("myName");
 		fromUI.setNumberOfSeats(2);
-		fromUI.setPassengerDetails("A1-23-M,A2-24-F");
+		List<PassengerDetails> pd = new ArrayList<>();
+		PassengerDetails p = new PassengerDetails();
+		p.setAge(23);
+		p.setName("passengerName");
+		p.setGender("Male");
+		pd.add(p);		
+		fromUI.setPassengerDetails(pd);
 //		fromUI.setSeatnos("21,22");
 		fromUI.setSeatType("Business Class");
 		fromUI.setDiscountCode("TESTDISCOUNT10");
 		fromUI.setTicketCost(11000);
+				
 	}
 
 	@AfterEach
@@ -86,6 +95,7 @@ public class FlightAppServiceTest {
 		assertEquals(11000, bd.getTicketCost());
 		assertEquals("myName", bd.getName());
 		assertEquals("TESTDISCOUNT10",bd.getDiscountCode());
+		assertEquals(1, bd.getPassengerDetails().size());
 	}
 
 	@Test

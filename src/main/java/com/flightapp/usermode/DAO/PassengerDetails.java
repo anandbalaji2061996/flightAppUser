@@ -13,20 +13,12 @@ public class PassengerDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	private String bookingId;
 	private String name;
 	private String gender;
-	private String age;
+	private int age;
 	
 	public long getId() {
 		return id;
-	}
-
-	public String getBookingId() {
-		return bookingId;
-	}
-	public void setBookingId(String bookingId) {
-		this.bookingId = bookingId;
 	}
 	public String getName() {
 		return name;
@@ -40,10 +32,10 @@ public class PassengerDetails {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getAge() {
+	public int getAge() {
 		return age;
 	}
-	public void setAge(String age) {
+	public void setAge(int age) {
 		this.age = age;
 	}
 

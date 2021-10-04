@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.flightapp.usermode.DAO.BookingDetails;
-import com.flightapp.usermode.DAO.BookingDetailsDisplay;
 import com.flightapp.usermode.DAO.BookingDetailsFromUI;
 import com.flightapp.usermode.Exception.BadRequestException;
 import com.flightapp.usermode.Exception.TicketNotFoundException;
@@ -42,11 +41,11 @@ public class FlightAppController {
 
 	@GetMapping("/ticket/{pnr}")
 	@PreAuthorize("hasRole('ROLE_USER')")
-	public ResponseEntity<List<BookingDetailsDisplay>> getBookingDetails(@PathVariable("pnr") String pnr) throws TicketNotFoundException {
+	public ResponseEntity<List<BookingDetails>> getBookingDetails(@PathVariable("pnr") String pnr) throws TicketNotFoundException {
 		logger.info("Get booking Details " + pnr);
-		List<BookingDetailsDisplay> list = new ArrayList<>();
+		List<BookingDetails> list = new ArrayList<>();
 		list.add(service.getBookingDetails(pnr));
-		return new ResponseEntity<List<BookingDetailsDisplay>>(list, HttpStatus.OK);
+		return new ResponseEntity<List<BookingDetails>>(list, HttpStatus.OK);
 	}
 
 	@PostMapping("/booking/{flightId}")

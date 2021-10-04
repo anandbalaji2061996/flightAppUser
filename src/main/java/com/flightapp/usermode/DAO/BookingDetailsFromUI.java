@@ -1,11 +1,13 @@
 package com.flightapp.usermode.DAO;
 
+import java.util.List;
+
 public class BookingDetailsFromUI {
 
 	private String name;
 	private String emailId;
 	private int numberOfSeats;
-	private String passengerDetails;
+	private List<PassengerDetails> passengerDetails;
 	private String seatType;
 	private String mealOption;
 //	private String seatnos;
@@ -61,10 +63,11 @@ public class BookingDetailsFromUI {
 	public void setNumberOfSeats(int numberOfSeats) {
 		this.numberOfSeats = numberOfSeats;
 	}
-	public String getPassengerDetails() {
+	
+	public List<PassengerDetails> getPassengerDetails() {
 		return passengerDetails;
 	}
-	public void setPassengerDetails(String passengerDetails) {
+	public void setPassengerDetails(List<PassengerDetails> passengerDetails) {
 		this.passengerDetails = passengerDetails;
 	}
 	public String getMealOption() {
