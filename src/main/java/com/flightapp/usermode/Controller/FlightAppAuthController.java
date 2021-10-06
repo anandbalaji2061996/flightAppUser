@@ -1,7 +1,5 @@
 package com.flightapp.usermode.Controller;
 
-import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +24,14 @@ public class FlightAppAuthController {
 	@Autowired
 	private UserService service;
 
-	@PostMapping("/register")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) throws UserAlreadyExistException {
+	@PostMapping(path = "/register", produces = {"application/json"})
+	public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) throws UserAlreadyExistException {
 		logger.info("User Registration");
 		return ResponseEntity.ok(service.registerUser(signUpRequest));
 	}
 
-	@PostMapping("/login")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody UserLoginCredentials loginRequest) {
+	@PostMapping(path = "/login", produces = {"application/json"})
+	public ResponseEntity<?> authenticateUser(@RequestBody UserLoginCredentials loginRequest) {
 		logger.info("User Login");
 		return ResponseEntity.ok(service.loginUser(loginRequest));
 	}

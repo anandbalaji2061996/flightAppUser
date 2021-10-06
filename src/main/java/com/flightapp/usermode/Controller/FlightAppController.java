@@ -39,7 +39,7 @@ public class FlightAppController {
 	@Autowired
 	UserService userService;
 
-	@GetMapping("/ticket/{pnr}")
+	@GetMapping(path = "/ticket/{pnr}", produces = {"application/json"})
 	@PreAuthorize("hasRole('ROLE_USER')")
 	public ResponseEntity<List<BookingDetails>> getBookingDetails(@PathVariable("pnr") String pnr) throws TicketNotFoundException {
 		logger.info("Get booking Details " + pnr);
@@ -48,28 +48,28 @@ public class FlightAppController {
 		return new ResponseEntity<List<BookingDetails>>(list, HttpStatus.OK);
 	}
 
-	@PostMapping("/booking/{flightId}")
+	@PostMapping(path = "/booking/{flightId}", produces = {"application/json"})
 	public ResponseEntity<BookingDetails> bookAFlight(@PathVariable("flightId") String flightId,
 			@RequestBody BookingDetailsFromUI bookingDetailsDisplay) throws BadRequestException {
 		logger.info("Book the tickets");
 		return new ResponseEntity<>(service.bookAFlight(flightId, bookingDetailsDisplay), HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/booking/history/{emailId}")
+	@GetMapping(path = "/booking/history/{emailId}", produces = {"application/json"})
 	@PreAuthorize("hasRole('ROLE_USER')")
 	public ResponseEntity<List<BookingDetails>> bookedTicketHistory(@PathVariable("emailId") String emailId) {
 		logger.info("Fetching ticket history for " + emailId);
 		return new ResponseEntity<>(service.bookedTicketHistory(emailId), HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/booking/cancel/{pnr}")
+	@DeleteMapping(path = "/booking/cancel/{pnr}", produces = {"application/text"})
 	@PreAuthorize("hasRole('ROLE_USER')")
 	public ResponseEntity<String> cancelBooking(@PathVariable("pnr") String pnr) throws TicketNotFoundException {
 		logger.warn("Cancelling ticket of " + pnr);
 		return new ResponseEntity<>(service.cancelBooking(pnr), HttpStatus.ACCEPTED);
 	}
 	
-	@GetMapping("/userDetails/{emailId}")
+	@GetMapping(path = "/userDetails/{emailId}", produces = {"application/text"})
 	@PreAuthorize("hasRole('ROLE_USER')")
 	public ResponseEntity<String> getUserDetails(@PathVariable("emailId") String emailId) throws UserNotFoundException {
 		logger.info("Get User Details!");
