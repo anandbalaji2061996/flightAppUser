@@ -8,26 +8,41 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "bookingDetails")
 public class BookingDetails {
 
 	@Id
+	@NotEmpty(message = "Pnr number should not be empty")
 	private String pnr;
+	@NotEmpty(message = "Flight number should not be empty")
 	private String flightNumber;
+	@NotEmpty(message = "Name should not be empty")
 	private String name;
+	@NotEmpty(message = "Email Id should not be empty")
 	private String emailId;
+	@NotEmpty(message = "Number od seats should not be empty")
 	private int numberOfSeats;
+	@NotEmpty(message = "Meal Option should not be empty")
 	private String mealOption;
+	@NotEmpty(message = "Seat type should not be empty")
 	private String seatType;
 //	private String seatNos;
+	@NotEmpty(message = "Date of Travel should not be empty")
 	private String dateOfTravel;
+	@NotEmpty(message = "From Place should not be empty")
 	private String fromPlace;
+	@NotEmpty(message = "To Place should not be empty")
 	private String toPlace;
+	@NotEmpty(message = "Departure Time should not be empty")
 	private String departureTime;
+	@NotEmpty(message = "Arrival Time should not be empty")
 	private String arrivalTime;
+	@NotEmpty(message = "Discount code should not be empty")
 	private String discountCode;
+	@NotEmpty(message = "Ticket Cost should not be empty")
 	private int ticketCost;
 	
 	@OneToMany(cascade=CascadeType.ALL)

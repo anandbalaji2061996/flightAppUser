@@ -13,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(	name = "users", 
@@ -24,9 +25,11 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	@NotEmpty(message = "Username should not be empty")
 	private String username;
+	@NotEmpty(message = "Email should not be empty")
 	private String email;
+	@NotEmpty(message = "Password should not be empty")
 	private String password;
 
 	@ManyToMany(fetch = FetchType.LAZY)

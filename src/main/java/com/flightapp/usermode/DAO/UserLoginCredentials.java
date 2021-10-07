@@ -1,8 +1,12 @@
 package com.flightapp.usermode.DAO;
 
+import javax.validation.constraints.NotEmpty;
+
 public class UserLoginCredentials {
 
+	@NotEmpty(message = "EmailId should not be empty")
 	private String emailId;
+	@NotEmpty(message = "Password should not be empty")
 	private String password;
 	
 	public String getEmailId() {
