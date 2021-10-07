@@ -2,21 +2,34 @@ package com.flightapp.usermode.DAO;
 
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
+
 public class BookingDetailsFromUI {
 
+	@NotEmpty(message = "Name should not be empty")
 	private String name;
+	@NotEmpty(message = "EmailId should not be empty")
 	private String emailId;
 	private int numberOfSeats;
+	@NotEmpty(message = "Passenger details should not be empty")
 	private List<PassengerDetails> passengerDetails;
+	@NotEmpty(message = "Seat Type should not be empty")
 	private String seatType;
+	@NotEmpty(message = "Meal Option should not be empty")
 	private String mealOption;
-//	private String seatnos;
+	@NotEmpty(message = "Date of Travel should not be empty")
 	private String dateofTravel;
+	@NotEmpty(message = "From Place should not be empty")
 	private String fromPlace;
+	@NotEmpty(message = "To Place should not be empty")
 	private String toPlace;
+	@NotEmpty(message = "Departure time should not be empty")
 	private String departureTime;
+	@NotEmpty(message = "Arrival time should not be empty")
 	private String arrivalTime;
+	@NotEmpty(message = "Flight number should not be empty")
 	private String flightNumber;
+	@NotEmpty(message = "Discount Code should not be empty")
 	private String discountCode;
 	private int ticketCost;
 	

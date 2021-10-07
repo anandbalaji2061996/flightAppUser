@@ -15,7 +15,6 @@ import javax.validation.constraints.NotEmpty;
 public class BookingDetails {
 
 	@Id
-	@NotEmpty(message = "Pnr number should not be empty")
 	private String pnr;
 	@NotEmpty(message = "Flight number should not be empty")
 	private String flightNumber;
@@ -23,7 +22,6 @@ public class BookingDetails {
 	private String name;
 	@NotEmpty(message = "Email Id should not be empty")
 	private String emailId;
-	@NotEmpty(message = "Number od seats should not be empty")
 	private int numberOfSeats;
 	@NotEmpty(message = "Meal Option should not be empty")
 	private String mealOption;
@@ -42,7 +40,6 @@ public class BookingDetails {
 	private String arrivalTime;
 	@NotEmpty(message = "Discount code should not be empty")
 	private String discountCode;
-	@NotEmpty(message = "Ticket Cost should not be empty")
 	private int ticketCost;
 	
 	@OneToMany(cascade=CascadeType.ALL)

@@ -3,6 +3,8 @@ package com.flightapp.usermode.Controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +43,7 @@ public class FlightAppController {
 
 	@GetMapping(path = "/ticket/{pnr}", produces = {"application/json"})
 	@PreAuthorize("hasRole('ROLE_USER')")
-	public ResponseEntity<List<BookingDetails>> getBookingDetails(@PathVariable("pnr") String pnr) throws TicketNotFoundException {
+	public ResponseEntity<List<BookingDetails>> getBookingDetails(@Valid @PathVariable("pnr") String pnr) throws TicketNotFoundException {
 		logger.info("Get booking Details " + pnr);
 		List<BookingDetails> list = new ArrayList<>();
 		list.add(service.getBookingDetails(pnr));
@@ -49,7 +51,7 @@ public class FlightAppController {
 	}
 
 	@PostMapping(path = "/booking/{flightId}", produces = {"application/json"})
-	public ResponseEntity<BookingDetails> bookAFlight(@PathVariable("flightId") String flightId,
+	public ResponseEntity<BookingDetails> bookAFlight(@Valid @PathVariable("flightId") String flightId,
 			@RequestBody BookingDetailsFromUI bookingDetailsDisplay) throws BadRequestException {
 		logger.info("Book the tickets");
 		return new ResponseEntity<>(service.bookAFlight(flightId, bookingDetailsDisplay), HttpStatus.CREATED);
@@ -57,21 +59,21 @@ public class FlightAppController {
 	
 	@GetMapping(path = "/booking/history/{emailId}", produces = {"application/json"})
 	@PreAuthorize("hasRole('ROLE_USER')")
-	public ResponseEntity<List<BookingDetails>> bookedTicketHistory(@PathVariable("emailId") String emailId) {
+	public ResponseEntity<List<BookingDetails>> bookedTicketHistory(@Valid @PathVariable("emailId") String emailId) {
 		logger.info("Fetching ticket history for " + emailId);
 		return new ResponseEntity<>(service.bookedTicketHistory(emailId), HttpStatus.OK);
 	}
 	
 	@DeleteMapping(path = "/booking/cancel/{pnr}", produces = {"application/text"})
 	@PreAuthorize("hasRole('ROLE_USER')")
-	public ResponseEntity<String> cancelBooking(@PathVariable("pnr") String pnr) throws TicketNotFoundException {
+	public ResponseEntity<String> cancelBooking(@Valid @PathVariable("pnr") String pnr) throws TicketNotFoundException {
 		logger.warn("Cancelling ticket of " + pnr);
 		return new ResponseEntity<>(service.cancelBooking(pnr), HttpStatus.ACCEPTED);
 	}
 	
 	@GetMapping(path = "/userDetails/{emailId}", produces = {"application/text"})
 	@PreAuthorize("hasRole('ROLE_USER')")
-	public ResponseEntity<String> getUserDetails(@PathVariable("emailId") String emailId) throws UserNotFoundException {
+	public ResponseEntity<String> getUserDetails(@Valid @PathVariable("emailId") String emailId) throws UserNotFoundException {
 		logger.info("Get User Details!");
 		return new ResponseEntity<>(userService.getUserDetails(emailId), HttpStatus.OK);
 	}
