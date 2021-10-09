@@ -15,7 +15,7 @@ import com.flightapp.usermode.DAO.UserLoginCredentials;
 import com.flightapp.usermode.Exception.UserAlreadyExistException;
 import com.flightapp.usermode.Service.UserService;
 
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api1/auth/user")
 public class FlightAppAuthController {

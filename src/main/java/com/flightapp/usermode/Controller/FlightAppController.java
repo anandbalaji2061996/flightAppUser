@@ -28,7 +28,7 @@ import com.flightapp.usermode.Exception.UserNotFoundException;
 import com.flightapp.usermode.Service.FlightAppService;
 import com.flightapp.usermode.Service.UserService;
 
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api1/v1.0/user/flight")
 public class FlightAppController {
